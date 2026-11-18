@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#111111">
+<title>Brief de invitación | Ricardo's Fotografía & Video</title>
+<style>
+:root{
+  --ink:#171717; --gold:#e9a900; --gold2:#f5bd25; --paper:#f7f5f0;
+  --muted:#77736b; --line:#e7e2d8; --white:#fff; --soft:#efede7;
+}
+*{box-sizing:border-box}
+body{margin:0;background:#efeee9;color:var(--ink);font-family:Inter,Arial,sans-serif;line-height:1.5}
+.page{max-width:980px;margin:28px auto;padding:0 18px 50px}
+.hero{background:var(--ink);color:white;border-radius:18px;padding:30px 34px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;width:270px;height:270px;border:1px solid rgba(233,169,0,.3);border-radius:50%;right:-90px;top:-115px;box-shadow:0 0 0 24px rgba(233,169,0,.035),0 0 0 50px rgba(233,169,0,.025)}
+.brand{display:flex;align-items:center;gap:14px;position:relative;z-index:1}
+.aperture{width:48px;height:48px;flex:none}
+.brand-name{font-family:Georgia,serif;font-size:clamp(23px,4vw,34px);letter-spacing:.2px;line-height:1}
+.brand-name span{color:var(--gold2)}
+.brand-sub{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#d5d1c7;margin-top:7px}
+.hero-rule{height:3px;width:76px;background:var(--gold);margin:24px 0 17px}
+.hero h1{font-family:Georgia,serif;font-weight:400;font-size:clamp(28px,5vw,43px);line-height:1.1;margin:0 0 10px}
+.hero p{color:#d2d0ca;max-width:660px;margin:0;font-size:14px}
+.hero-note{margin-top:20px;display:inline-flex;gap:8px;align-items:center;color:#f4c64e;font-size:12px;letter-spacing:.5px}
+.progress-wrap{display:flex;align-items:center;gap:14px;margin:22px 2px 18px;color:#6f6b63;font-size:12px}
+.progress{height:5px;background:#ddd9d0;border-radius:10px;flex:1;overflow:hidden}
+.progress>div{height:100%;width:0;background:var(--gold);transition:width .2s}
+form{display:grid;gap:16px}
+.section{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:23px 25px;box-shadow:0 3px 12px rgba(20,20,20,.025);break-inside:avoid}
+.section-head{display:flex;align-items:flex-start;gap:13px;margin-bottom:18px}
+.num{width:32px;height:32px;background:var(--ink);color:var(--gold2);border-radius:8px;display:grid;place-items:center;font-family:Georgia,serif;font-size:17px;flex:none}
+.section h2{font-family:Georgia,serif;font-weight:400;font-size:23px;margin:0}
+.section-head p{font-size:12px;color:var(--muted);margin:3px 0 0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field.full{grid-column:1/-1}
+label,.label{font-size:12px;font-weight:700;color:#4e4a43}
+input,textarea,select{width:100%;border:1px solid #dedbd3;border-radius:8px;padding:11px 12px;font:14px Arial,sans-serif;color:#242424;background:#fff;outline:none}
+input:focus,textarea:focus,select:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(233,169,0,.12)}
+textarea{min-height:78px;resize:vertical}
+.hint{font-size:11px;color:#88847c}
+.choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px 14px}
+.choice{display:flex;gap:9px;align-items:flex-start;font-size:13px;color:#4e4a43;font-weight:400;line-height:1.35}
+.choice input{width:16px;height:16px;margin:1px 0 0;accent-color:#d69b00;flex:none}
+.choice strong{color:#242424}
+.inline-options{display:flex;flex-wrap:wrap;gap:10px 18px}
+.inline-options .choice{align-items:center}
+.subhead{font-size:13px;font-weight:700;margin:18px 0 10px;color:#38352f}
+.callout{background:#fbf7e9;border-left:3px solid var(--gold);padding:12px 14px;border-radius:0 8px 8px 0;font-size:12px;color:#62583e;margin-top:14px}
+.known{background:#f4f1e8;border:1px dashed #d8bd75;border-radius:9px;padding:13px 15px;font-size:13px;color:#5c5136}
+.known b{color:#27231b}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0 0}
+button{border:0;border-radius:9px;padding:13px 18px;font-weight:700;font-size:13px;cursor:pointer}
+.primary{background:var(--gold);color:#171717}
+.secondary{background:#171717;color:white}
+.light{background:#e9e6df;color:#39362f}
+button:hover{filter:brightness(.96)}
+.footer{text-align:center;padding:23px 10px;color:#77736b;font-size:11px}
+.footer strong{color:#292722;letter-spacing:1px}
+.smallprint{font-size:11px;color:#77736b;margin-top:9px}
+#toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#171717;color:#fff;padding:11px 16px;border-radius:9px;font-size:12px;display:none;z-index:5;max-width:90vw}
+@media(max-width:650px){
+ .page{margin:12px auto;padding:0 10px 30px}.hero{padding:23px 20px;border-radius:13px}
+ .section{padding:19px 16px}.grid,.choices{grid-template-columns:1fr}
+ .field.full{grid-column:auto}.section h2{font-size:21px}
+ .actions button{width:100%}
+}
+@media print{
+ @page{size:A4;margin:13mm}
+ body{background:#fff;font-size:11px}
+ .page{max-width:none;margin:0;padding:0}
+ .hero{border-radius:0;padding:18px 22px;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+ .hero:after{display:none}
+ .progress-wrap,.actions,#toast{display:none!important}
+ form{gap:9px}
+ .section{box-shadow:none;border:1px solid #d8d5ce;padding:14px 16px;break-inside:avoid}
+ .section h2{font-size:18px}
+ .section-head{margin-bottom:11px}
+ input,textarea,select{border:0;border-bottom:1px solid #bbb;border-radius:0;padding:5px 2px;background:transparent;font-size:11px}
+ textarea{min-height:38px}
+ .choice{font-size:10px}
+ .num{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+ .footer{padding:12px}
+ .known,.callout{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+}
+
+.hero:after{display:none}
+.brand{display:flex;align-items:center;gap:28px;position:relative;z-index:1}
+.brand-logo{display:block;width:250px;height:141px;object-fit:contain;flex:none;background:#000;border-radius:8px}
+.brand-copy{max-width:560px}
+.brand-kicker{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold2);font-weight:700;margin-bottom:12px}
+.brand-heading{font-family:Georgia,serif;font-weight:400;font-size:clamp(27px,4.4vw,43px);line-height:1.12;margin:0 0 10px;color:#fff}
+.brand-description{color:#d2d0ca;max-width:570px;margin:0;font-size:14px}
+.hero-rule{height:3px;width:76px;background:var(--gold);margin:20px 0 16px}
+@media(max-width:650px){
+ .brand{gap:15px;align-items:center}
+ .brand-logo{width:142px;height:80px}
+ .brand-kicker{font-size:9px;letter-spacing:1.8px;margin-bottom:7px}
+ .brand-heading{font-size:26px}
+ .brand-description{font-size:12px}
+}
+@media print{
+ .brand-logo{width:142px;height:80px}
+}
+
+
+.plan-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.plan-card{display:flex;gap:12px;align-items:flex-start;padding:17px;border:1px solid #dedbd3;border-radius:12px;background:#fff;cursor:pointer;min-width:0}
+.plan-card:has(input:checked){border:2px solid var(--gold);background:#fffaf0;padding:16px}
+.plan-card input{width:18px;height:18px;margin:2px 0 0;accent-color:#d69b00;flex:none}
+.plan-body{display:flex;flex-direction:column;gap:7px}
+.plan-title{font-family:Georgia,serif;font-size:19px;color:#24211b}
+.plan-tag{font-size:10px;line-height:1.35;font-weight:800;letter-spacing:.7px;color:#4c5e39}
+.extra-tag{color:#9a6800}
+.plan-desc{font-size:12px;color:#514d45;line-height:1.5}
+.plan-desc.muted{color:#77736b}
+.undecided-card{grid-column:1/-1;padding:12px 17px}
+.undecided-card .plan-title{font-size:16px}
+.advanced-only[hidden],.advanced-input[hidden]{display:none!important}
+.admin-options{padding:14px;background:#fbf8ef;border:1px solid #eee2c2;border-radius:9px}
+@media(max-width:650px){.plan-options{grid-template-columns:1fr}.undecided-card{grid-column:auto}.plan-card{padding:14px}}
+@media print{.plan-card{break-inside:avoid}.plan-card:has(input:checked){print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+
+
+/* Paletas de cuatro tonos y editor de color tipo software creativo */
+.palette-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin-top:12px}
+.palette-card{padding:13px;border:1px solid #dedbd3;border-radius:11px;background:#fff;min-width:0;transition:border-color .15s,background .15s,box-shadow .15s}
+.palette-card:has(input:checked){border:2px solid var(--gold);padding:12px;background:#fffaf0;box-shadow:0 0 0 2px rgba(233,169,0,.08)}
+.palette-card-head{display:flex;align-items:center;gap:9px}
+.palette-card-head input[type=radio]{width:17px;height:17px;flex:none;margin:0;accent-color:#d69b00}
+.palette-card-head label{font-size:13px;font-weight:700;color:#292720;cursor:pointer}
+.palette-swatches{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0 0 26px}
+.palette-swatch{width:34px;height:29px;border-radius:6px;border:1px solid rgba(0,0,0,.16);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;padding:0;position:relative;box-shadow:inset 0 0 0 1px rgba(255,255,255,.15)}
+.palette-swatch:hover,.editor-swatch:hover{outline:2px solid var(--gold);outline-offset:2px}
+.palette-swatch:focus-visible,.editor-swatch:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.palette-swatch::after{content:'✎';font-size:12px;font-weight:800;color:rgba(0,0,0,.62);text-shadow:0 1px 2px rgba(255,255,255,.6);opacity:0;transition:opacity .15s}
+.palette-swatch:hover::after{opacity:1}
+.palette-hint{font-size:10px;color:#77736b;margin:7px 0 0 26px}
+.palette-editor{margin-top:16px;padding:16px;border:1px solid #e2d5b5;border-radius:12px;background:#fcfaf4}
+.palette-editor[hidden],.color-picker-overlay[hidden]{display:none!important}
+.palette-editor-title{font-family:Georgia,serif;font-size:19px;color:#27241e;margin-bottom:3px}
+.palette-editor-help{font-size:11px;color:#77736b;margin-bottom:14px}
+.palette-color-editors{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.palette-color-item{display:grid;grid-template-columns:54px minmax(0,1fr);gap:11px;align-items:start;background:#fff;border:1px solid #e6e1d8;border-radius:9px;padding:11px;min-width:0}
+.editor-swatch{width:54px;height:54px;border-radius:8px;border:1px solid rgba(0,0,0,.17);cursor:pointer;position:relative}
+.editor-swatch::after{content:'Editar';position:absolute;bottom:3px;left:0;right:0;text-align:center;font-size:9px;font-weight:700;color:#fff;text-shadow:0 1px 3px #000;background:rgba(0,0,0,.28);padding:1px 0;border-radius:0 0 7px 7px}
+.palette-color-meta{min-width:0}
+.palette-color-meta strong{font-size:12px;display:block;margin-bottom:5px}
+.palette-code-line{display:grid;grid-template-columns:40px minmax(0,1fr);align-items:center;gap:5px;margin-top:4px}
+.palette-code-line span{font-size:9px;color:#77736b;font-weight:700;letter-spacing:.3px}
+.palette-code-line input{padding:5px 6px;font-size:10px;font-family:ui-monospace,Consolas,monospace;min-width:0;height:27px}
+.palette-editor-foot{font-size:10px;color:#77736b;margin:12px 0 0}
+.color-picker-overlay{position:fixed;inset:0;background:rgba(15,15,15,.62);z-index:1000;display:flex;align-items:center;justify-content:center;padding:18px}
+.color-picker-dialog{width:min(680px,100%);max-height:92vh;overflow:auto;background:#fff;border-radius:15px;box-shadow:0 24px 80px rgba(0,0,0,.3);padding:20px}
+.picker-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:16px}
+.picker-head h3{font-family:Georgia,serif;font-weight:400;font-size:22px;margin:0;color:#211f1a}
+.picker-head p{margin:4px 0 0;font-size:11px;color:#77736b}
+.picker-close{background:#eeeae2;color:#333;padding:7px 11px}
+.picker-layout{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(220px,.8fr);gap:18px}
+.sv-square{height:250px;border-radius:8px;position:relative;cursor:crosshair;touch-action:none;overflow:hidden;background:linear-gradient(to top,#000,transparent),linear-gradient(to right,#fff,hsl(var(--picker-hue,0),100%,50%));border:1px solid rgba(0,0,0,.14)}
+.sv-marker{position:absolute;width:16px;height:16px;border:2px solid #fff;border-radius:50%;box-shadow:0 0 0 1px #111;transform:translate(-50%,-50%);pointer-events:none}
+.hue-control{width:100%;margin:12px 0 0;accent-color:#b58b28;cursor:pointer}
+.hue-rainbow{height:12px;border-radius:8px;background:linear-gradient(90deg,red,#ff0,#0f0,#0ff,#00f,#f0f,red);margin-top:-19px;pointer-events:none}
+.picker-preview-row{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.picker-preview{width:52px;height:42px;border:1px solid rgba(0,0,0,.18);border-radius:8px}
+.picker-preview-text{font-size:11px;color:#5f5b53}
+.picker-preview-text strong{display:block;color:#24211c;font-size:13px}
+.picker-code-fields{display:grid;gap:10px}
+.picker-code-fields label{display:grid;gap:4px;font-size:11px}
+.picker-code-fields input{font-family:ui-monospace,Consolas,monospace;font-size:12px;padding:9px 10px}
+.picker-code-fields small{font-weight:400;color:#858078}
+.picker-error{min-height:17px;color:#a33b32;font-size:10px;margin-top:5px}
+.picker-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:15px}
+.picker-actions button{padding:10px 16px}
+@media(max-width:700px){.palette-grid{grid-template-columns:1fr}.palette-color-editors{grid-template-columns:1fr}.picker-layout{grid-template-columns:1fr}.sv-square{height:210px}.color-picker-dialog{padding:15px}}
+@media print{
+ .palette-card:has(input:checked){print-color-adjust:exact;-webkit-print-color-adjust:exact}
+ .palette-swatch,.editor-swatch,.palette-color-item{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+ .palette-editor{break-inside:avoid}
+ .palette-code-line input{border:0;border-bottom:1px solid #bbb;border-radius:0;padding:2px 0;background:transparent}
+ .color-picker-overlay{display:none!important}
+ .palette-swatch::after,.editor-swatch::after{display:none}
+}
+
+.workflow{margin:22px 0 0;padding:20px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 3px 12px rgba(20,20,20,.025)}
+.workflow-title{font-family:Georgia,serif;font-size:22px;font-weight:400;margin:0 0 5px}
+.workflow-intro{font-size:12px;color:var(--muted);margin:0 0 15px}
+.workflow-status{padding:11px 13px;margin:0 0 14px;border-radius:8px;background:#f5f2eb;color:#554b38;font-size:12px;border-left:3px solid var(--gold)}
+.actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0}
+.actions button{min-height:48px}
+button:disabled{opacity:.42;cursor:not-allowed;filter:none}
+button:disabled:hover{filter:none}
+.workflow-note{font-size:11px;color:#77736b;line-height:1.55;margin:12px 0 0}
+@media(max-width:700px){.actions{grid-template-columns:1fr}.workflow{padding:16px}}
+@media print{.workflow{display:none!important}}
+
+
+
+/* Encabezado de marca: logotipo centrado en una franja negra continua */
+.hero{background:#171717;color:#fff;padding:28px 34px 30px;overflow:hidden}
+.brand{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;width:100%;text-align:center;position:relative;z-index:1}
+.brand-logo-band{width:calc(100% + 68px);margin:-28px -34px 23px;background:#000;min-height:178px;display:flex;align-items:center;justify-content:center;padding:17px 24px 15px;border-bottom:1px solid rgba(233,169,0,.72)}
+.brand-logo{display:block;width:min(410px,88%);height:auto;max-height:180px;object-fit:contain;flex:none;background:#000;border:0;border-radius:0;box-shadow:none;margin:0 auto}
+.brand-copy{width:100%;max-width:760px;margin:0 auto;text-align:center}
+.brand-kicker{text-align:center;margin:0 0 9px}
+.brand-heading{text-align:center;margin:0 0 10px}
+.brand-description{max-width:700px;margin:0 auto;text-align:center}
+.hero-rule{margin:19px auto 15px}
+.hero-note{display:flex;justify-content:center;margin:0 auto;text-align:center}
+@media(max-width:650px){
+ .hero{padding:0 18px 23px;border-radius:13px}
+ .brand-logo-band{width:calc(100% + 36px);margin:0 -18px 20px;min-height:132px;padding:14px 18px 12px}
+ .brand-logo{width:min(330px,94%);max-height:126px}
+ .brand{gap:0}
+ .brand-copy{padding:0 2px}
+ .brand-kicker{font-size:9px;letter-spacing:1.8px;margin-bottom:8px}
+ .brand-heading{font-size:27px;line-height:1.12}
+ .brand-description{font-size:12px;line-height:1.55}
+ .hero-rule{margin:16px auto 13px}
+ .hero-note{font-size:10px;letter-spacing:.4px}
+}
+@media print{
+ .hero{background:#171717!important;padding:0 18px 18px;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+ .brand-logo-band{width:calc(100% + 36px);margin:0 -18px 13px;min-height:110px;padding:10px 18px;background:#000!important;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+ .brand-logo{width:280px;max-height:100px}
+ .brand-copy{text-align:center}
+ .hero-rule{margin:12px auto}
+}
+
+</style>
+</head>
+<body>
+<div class="page">
+<header class="hero">
+  <div class="brand">
+    <div class="brand-logo-band">
+      <img class="brand-logo" src="logo-ricardos.jpg" alt="Logotipo original de Ricardo's Fotografía & Video">
+    </div>
+    <div class="brand-copy">
+      <div class="brand-kicker">Ricardo's Fotografía &amp; Video presenta</div>
+      <h1 class="brand-heading">Brief de invitación digital</h1>
+      <p class="brand-description">La invitación básica está incluida en el paquete de fotografía y video e incorpora los datos esenciales de tu celebración. Si deseas funciones interactivas, enlaces o un panel administrativo, podrás solicitar una cotización adicional.</p>
+      <div class="hero-rule"></div>
+      <div class="hero-note">✦ XV AÑOS · BRIEF DE INVITACIÓN DIGITAL</div>
+    </div>
+  </div>
+</header>
+
+<div class="progress-wrap"><span id="progressText">0% completado</span><div class="progress"><div id="progressBar"></div></div><span>XV AÑOS</span></div>
+
+<form id="brief">
+<section class="section">
+ <div class="section-head"><div class="num">01</div><div><h2>Datos principales</h2><p>Datos que aparecerán en cualquier modalidad de invitación.</p></div></div>
+ <div class="grid">
+  <div class="field"><label>Nombre completo de la quinceañera *</label><input name="Nombre de la quinceañera" required placeholder="Nombre y apellidos"></div>
+  <div class="field"><label>Fecha del evento *</label><input name="Fecha del evento" type="date" required></div>
+  <div class="field"><label>Nombre de los padres *</label><input name="Padres" required placeholder="Nombres de mamá y papá (si no aplica, escribe No aplica)"></div>
+  <div class="field"><label>Nombre de padrinos *</label><input name="Padrinos" required placeholder="Nombres de padrinos (si no aplica, escribe No aplica)"></div>
+ </div>
+</section>
+
+<section class="section plan-section">
+ <div class="section-head"><div class="num">02</div><div><h2>Elige el tipo de invitación</h2><p>Primero selecciona qué modalidad te interesa. En cualquier modalidad podrás indicar tus preferencias visuales.</p></div></div>
+ <div class="plan-options">
+  <label class="plan-card">
+   <input type="radio" name="Tipo de invitación" value="Invitación básica incluida" required>
+   <span class="plan-body">
+    <span class="plan-title">Invitación básica</span>
+    <span class="plan-tag">INCLUIDA EN EL PAQUETE DE FOTOGRAFÍA Y VIDEO</span>
+    <span class="plan-desc">Incluye el <strong>nombre y fecha del evento</strong>, nombres de padres y padrinos, datos de la misa y recepción, un texto de referencia y una sección informativa de mesa de regalos, dentro del formato básico de Ricardo's.</span>
+    <span class="plan-desc muted">No incluye botones ni enlaces externos, galería, música, RSVP, efectos especiales, animaciones ni panel administrativo.</span>
+   </span>
+  </label>
+  <label class="plan-card advanced-card">
+   <input type="radio" name="Tipo de invitación" value="Solicito cotización de invitación avanzada">
+   <span class="plan-body">
+    <span class="plan-title">Invitación personalizada avanzada</span>
+    <span class="plan-tag extra-tag">SERVICIO CON COSTO ADICIONAL · COTIZACIÓN</span>
+    <span class="plan-desc">Incluye los datos esenciales de cualquier invitación y permite solicitar contenido adicional, fotografías, galerías, botones, enlaces externos, funciones interactivas y efectos.</span>
+    <span class="plan-desc muted">El costo depende de las características que se soliciten. No se muestran precios en este formulario; Ricardo's preparará una cotización.</span>
+   </span>
+  </label>
+  <label class="plan-card undecided-card">
+   <input type="radio" name="Tipo de invitación" value="Necesito asesoría antes de elegir">
+   <span class="plan-body">
+    <span class="plan-title">Todavía no lo decido</span>
+    <span class="plan-desc">Quiero conocer las opciones y recibir orientación antes de elegir.</span>
+   </span>
+  </label>
+ </div>
+ <div class="callout"><strong>Importante:</strong> seleccionar una opción avanzada solo solicita una cotización. Ninguna función adicional ni el panel administrativo se considera incluido o contratado hasta que Ricardo's confirme el alcance y el costo.</div>
+</section>
+
+<section class="section">
+ <div class="section-head"><div class="num">03</div><div><h2>Ceremonia religiosa</h2><p>Estos datos forman parte de todas las invitaciones, incluida la básica.</p></div></div>
+ <div class="grid">
+  <div class="field"><label>Nombre de la iglesia o parroquia *</label><input name="Iglesia" required></div>
+  <div class="field"><label>Hora de la misa *</label><input name="Hora de misa" type="time" required></div>
+  <div class="field full"><label>Dirección completa de la iglesia *</label><textarea name="Dirección iglesia" required placeholder="Calle, número, colonia, ciudad y estado"></textarea></div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="section-head"><div class="num">04</div><div><h2>Recepción</h2><p>Información incluida en la invitación básica y en la avanzada.</p></div></div>
+ <div class="grid">
+  <div class="field"><label>Nombre del salón o lugar de recepción *</label><input name="Salón" required></div>
+  <div class="field"><label>Hora de recepción *</label><input name="Hora recepción" type="time" required></div>
+  <div class="field full"><label>Dirección completa del salón *</label><textarea name="Dirección salón" required placeholder="Calle, número, colonia, ciudad y estado"></textarea></div>
+  <div class="field full"><label>Información adicional para los invitados (opcional)</label><textarea name="Información adicional" placeholder="Indicaciones de llegada, estacionamiento, acceso, etc."></textarea></div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="section-head"><div class="num">05</div><div><h2>Enlaces de ubicación</h2><p>Compártenos los enlaces para localizar con precisión la iglesia y el salón.</p></div></div>
+ <div class="grid">
+  <div class="field full"><label>Enlace de Google Maps de la iglesia o parroquia</label><input name="Maps iglesia" type="url" placeholder="Pega aquí el enlace compartido de Google Maps"><span class="link-explainer">Este enlace nos sirve como referencia para verificar la ubicación. En la invitación básica se mostrará la dirección escrita; convertirlo en un botón para abrir Maps es una función avanzada.</span></div>
+  <div class="field full"><label>Enlace de Google Maps del salón o recepción</label><input name="Maps salón" type="url" placeholder="Pega aquí el enlace compartido de Google Maps"><span class="link-explainer">En la invitación básica se mostrará la dirección escrita. El botón interactivo de ubicación se cotiza como parte de una invitación avanzada.</span></div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="section-head"><div class="num">06</div><div><h2>Texto de referencia</h2><p>Un mensaje breve que acompañará la invitación, tanto básica como avanzada.</p></div></div>
+ <div class="grid">
+  <div class="field full"><label>¿Qué texto deseas incluir?</label><textarea name="Texto de referencia" required placeholder="Puedes escribir una frase de invitación, agradecimiento o bienvenida. Si prefieres que Ricardo's te proponga una, escribe: Solicito propuesta de texto."></textarea><span class="hint">Ejemplo: “Con mucha ilusión te invito a celebrar conmigo este día tan especial”.</span></div>
+  <div class="field"><label>¿Quién preparará el texto?</label><select name="Responsable del texto"><option value="">Selecciona</option><option>Enviaré mi propio texto</option><option>Quiero que Ricardo's me proponga uno</option></select></div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="section-head"><div class="num">07</div><div><h2>Mesa de regalos · Información</h2><p>Todas las modalidades incluyen un apartado de regalos presentado como texto informativo, sin botones ni enlaces en la versión básica.</p></div></div>
+ <div class="grid">
+  <div class="field"><label>¿Qué deseas comunicar a tus invitados?</label><select name="Tipo de mesa de regalos informativa" required><option value="">Selecciona</option><option>Se recibirán regalos en efectivo</option><option>Se recibirán sobres con dinero</option><option>Habrá una mesa o espacio para regalos</option><option>Se aceptan regalos en especie</option><option>Por definir; solicito orientación</option></select></div>
+  <div class="field full"><label>Texto informativo para la sección de regalos</label><textarea name="Texto mesa de regalos" required placeholder="Ej. Tu compañía es nuestro mejor regalo. Si deseas obsequiarme algo, agradeceré que sea en efectivo. Puedes depositar tu sobre en la cajita ubicada en la entrada del salón. Si necesitas ayuda con la redacción, escribe: Solicito propuesta de texto."></textarea></div>
+ </div>
+ <div class="callout"><strong>Para la invitación básica:</strong> este apartado se presenta únicamente como texto. No se agregan botones, enlaces a Amazon, Liverpool u otras tiendas, ni vínculos de mesa de regalos.</div>
+</section>
+
+<section class="section design-section">
+ <div class="section-head"><div class="num">08</div><div><h2>Estilo y temática</h2><p>Cuéntanos qué ambiente o concepto te gustaría para tu invitación, incluso si elegiste la modalidad básica.</p></div></div>
+ <div class="choices">
+  <label class="choice"><input type="checkbox" name="Estilo" value="Princesa / Disney"><span><strong>Princesa / Disney</strong><br>Castillos, coronas, magia y tonos pastel.</span></label>
+  <label class="choice"><input type="checkbox" name="Estilo" value="Cenicienta"><span><strong>Cenicienta</strong><br>Cristales, carruaje, azul y plateado.</span></label>
+  <label class="choice"><input type="checkbox" name="Estilo" value="Barbie / Glamour"><span><strong>Barbie / Glamour</strong><br>Rosa, destellos y estética fashion.</span></label>
+  <label class="choice"><input type="checkbox" name="Estilo" value="Romántico floral"><span><strong>Romántico floral</strong><br>Flores delicadas y tonos suaves.</span></label>
+  <label class="choice"><input type="checkbox" name="Estilo" value="Boho / Indie"><span><strong>Boho / Indie</strong><br>Colores tierra, pampas y texturas naturales.</span></label>
+  <label class="choice"><input type="checkbox" name="Estilo" value="Vintage"><span><strong>Vintage</strong><br>Papel antiguo, detalles retro y tipografía clásica.</span></label>
+  <label class="choice"><input type="checkbox" name="Estilo" value="Minimalista elegante"><span><strong>Minimalista elegante</strong><br>Diseño limpio y tipografía fina.</span></label>
+  <label class="choice"><input type="checkbox" name="Estilo" value="Moderno / Luxury"><span><strong>Moderno / Luxury</strong><br>Negro, dorado y contrastes sofisticados.</span></label>
+  <label class="choice"><input type="checkbox" name="Estilo" value="Jardín encantado"><span><strong>Jardín encantado</strong><br>Vegetación, flores y mariposas.</span></label>
+  <label class="choice"><input type="checkbox" name="Estilo" value="Mariposas"><span><strong>Mariposas</strong><br>Alas, tonos pastel y movimiento.</span></label>
+  <label class="choice"><input type="checkbox" name="Estilo" value="Celestial"><span><strong>Celestial</strong><br>Estrellas, lunas y constelaciones.</span></label>
+  <label class="choice"><input type="checkbox" name="Estilo" value="Sirena / Mar"><span><strong>Sirena / Mar</strong><br>Perlas, conchas y tonos aqua.</span></label>
+  <label class="choice"><input type="checkbox" name="Estilo" value="Royal / Realeza"><span><strong>Royal / Realeza</strong><br>Coronas, terciopelo y tonos intensos.</span></label>
+  <label class="choice"><input type="checkbox" name="Estilo" value="Otro estilo"><span><strong>Otro estilo</strong></span></label>
+ </div>
+ <div class="grid" style="margin-top:15px"><div class="field full"><label>Describe tu idea o el estilo que buscas</label><textarea name="Descripción de estilo" placeholder="Cuéntanos cómo imaginas tu invitación..."></textarea></div></div>
+</section>
+
+<section class="section design-section">
+ <div class="section-head"><div class="num">06</div><div><h2>Paleta de colores</h2><p>Elige una combinación de cuatro tonos. Después puedes editar cada color individualmente, incluso si elegiste una paleta prediseñada.</p></div></div>
+ <div class="palette-grid" id="paletteGrid" aria-label="Paletas de cuatro colores"></div>
+ <div class="palette-editor" id="paletteEditor" hidden>
+  <div class="palette-editor-title">Personaliza los cuatro colores</div>
+  <div class="palette-editor-help">Pulsa cualquiera de las muestras para abrir el selector. Puedes elegir visualmente o escribir HEX, RGB o CMYK. Los cambios se guardan en el resumen y en el PDF.</div>
+  <div class="palette-color-editors" id="paletteColorEditors"></div>
+  <p class="palette-editor-foot">Los valores CMYK son una conversión aproximada desde RGB para previsualización en pantalla. Para impresión profesional, el resultado puede variar según el perfil de color y la impresora.</p>
+ </div>
+ <div class="grid" style="margin-top:15px">
+  <div class="field"><label>Otros colores que te gustaría agregar</label><input name="Otros colores" placeholder="Ej. rosa viejo, verde olivo..."></div>
+  <div class="field"><label>Colores que NO deseas</label><input name="Colores prohibidos" placeholder="Colores que debemos evitar"></div>
+  <div class="field full"><label>¿Hay algún color reservado para el vestido de la quinceañera?</label><input name="Color vestido" placeholder="Ej. Rose gold, rojo, azul..."></div>
+ </div>
+ <div class="callout"><strong>Importante:</strong> puedes ajustar los tonos de una paleta prediseñada. La combinación seleccionada será la referencia cromática del diseño. Una composición visual especial o con efectos puede requerir cotización adicional.</div>
+</section>
+
+<div class="color-picker-overlay" id="colorPickerOverlay" hidden>
+ <section class="color-picker-dialog" role="dialog" aria-modal="true" aria-labelledby="pickerTitle">
+  <div class="picker-head">
+   <div><h3 id="pickerTitle">Editar color</h3><p>Selecciona el tono visualmente o introduce sus valores numéricos.</p></div>
+   <button type="button" class="picker-close" id="pickerClose" aria-label="Cerrar selector">✕</button>
+  </div>
+  <div class="picker-layout">
+   <div>
+    <div class="sv-square" id="svSquare" tabindex="0" aria-label="Selector de saturación y luminosidad"><span class="sv-marker" id="svMarker"></span></div>
+    <input class="hue-control" type="range" id="hueRange" min="0" max="360" value="0" aria-label="Tono">
+    <div class="hue-rainbow"></div>
+   </div>
+   <div>
+    <div class="picker-preview-row"><div class="picker-preview" id="pickerPreview"></div><div class="picker-preview-text"><strong id="pickerColorName">Color seleccionado</strong><span>Vista previa del tono</span></div></div>
+    <div class="picker-code-fields">
+     <label>HEX <small>Ejemplo: #C9828E</small><input id="pickerHex" type="text" maxlength="7" spellcheck="false" autocomplete="off"></label>
+     <label>RGB <small>R, G, B · valores de 0 a 255</small><input id="pickerRgb" type="text" placeholder="201, 130, 142" spellcheck="false"></label>
+     <label>CMYK <small>C, M, Y, K · porcentajes de 0 a 100</small><input id="pickerCmyk" type="text" placeholder="0, 35, 29, 21" spellcheck="false"></label>
+    </div>
+    <div class="picker-error" id="pickerError" aria-live="polite"></div>
+   </div>
+  </div>
+  <div class="picker-actions"><button type="button" class="light" id="pickerCancel">Cancelar</button><button type="button" class="primary" id="pickerSave">Aplicar color</button></div>
+ </section>
+</div>
+
+<section class="section design-section">
+ <div class="section-head"><div class="num">07</div><div><h2>Fondo y ambiente visual</h2><p>¿Qué tipo de fondo imaginas para tu invitación?</p></div></div>
+ <div class="choices">
+  <label class="choice"><input type="checkbox" name="Tipo de fondo" value="Color liso o minimalista"><span><strong>Color liso / minimalista</strong><br>Un fondo limpio de un solo color.</span></label>
+  <label class="choice"><input type="checkbox" name="Tipo de fondo" value="Textura de papel"><span><strong>Textura de papel</strong><br>Papel fino, algodón, acuarela o perlado.</span></label>
+  <label class="choice"><input type="checkbox" name="Tipo de fondo" value="Jardín o bosque"><span><strong>Jardín / bosque</strong><br>Vegetación, árboles y luz natural.</span></label>
+  <label class="choice"><input type="checkbox" name="Tipo de fondo" value="Fondo floral"><span><strong>Fondo floral</strong><br>Flores como marco o como escenario.</span></label>
+  <label class="choice"><input type="checkbox" name="Tipo de fondo" value="Castillo o arquitectura"><span><strong>Castillo / arquitectura</strong><br>Palacios, salones o fachadas elegantes.</span></label>
+  <label class="choice"><input type="checkbox" name="Tipo de fondo" value="Cielo y estrellas"><span><strong>Cielo / estrellas</strong><br>Nubes, atardeceres, luna o constelaciones.</span></label>
+  <label class="choice"><input type="checkbox" name="Tipo de fondo" value="Textura mármol o piedra"><span><strong>Mármol / piedra</strong><br>Texturas naturales y elegantes.</span></label>
+  <label class="choice"><input type="checkbox" name="Tipo de fondo" value="Fondo oscuro con luces"><span><strong>Fondo oscuro con luces</strong><br>Negro, destellos y luces desenfocadas.</span></label>
+  <label class="choice"><input type="checkbox" name="Tipo de fondo" value="Formas abstractas o degradados"><span><strong>Abstracto / degradados</strong><br>Formas modernas y transiciones de color.</span></label>
+  <label class="choice"><input type="checkbox" name="Tipo de fondo" value="Fotografía propia"><span><strong>Fotografía propia</strong><br>Una imagen personal o del lugar como fondo.</span></label>
+  <label class="choice"><input type="checkbox" name="Tipo de fondo" value="Que Ricardo's proponga el fondo"><span><strong>Prefiero una propuesta</strong><br>Quiero que Ricardo's me recomiende el fondo.</span></label>
+ </div>
+ <div class="grid" style="margin-top:15px">
+  <div class="field"><label>Color principal del fondo (si lo tienes definido)</label><input name="Color principal del fondo" placeholder="Ej. Verde olivo, beige, azul noche..."></div>
+  <div class="field"><label>¿Tienes una imagen específica para utilizar de fondo?</label><select name="Imagen específica de fondo"><option value="">Selecciona</option><option>Sí, la enviaré por WhatsApp</option><option>No</option><option>Quiero que me propongan una</option></select></div>
+  <div class="field full"><label>Describe el fondo o ambiente que imaginas</label><textarea name="Descripción del fondo" placeholder="Ej. Un bosque oscuro con luces cálidas al fondo, un jardín claro con flores blancas..."></textarea></div>
+ </div>
+ <div class="callout"><strong>Nota:</strong> estas respuestas nos sirven como guía de diseño. La invitación básica conserva su estructura sencilla; los fondos, composiciones o recursos especiales que impliquen un desarrollo adicional pueden requerir cotización.</div>
+</section>
+
+<section class="section design-section">
+ <div class="section-head"><div class="num">08</div><div><h2>Flores y detalles decorativos</h2><p>Selecciona los elementos visuales que te gustan. En la invitación básica se adaptarán al formato sencillo incluido.</p></div></div>
+ <div class="subhead">¿Deseas incluir flores?</div>
+ <div class="inline-options">
+  <label class="choice"><input type="radio" name="Flores" value="Sí">Sí</label>
+  <label class="choice"><input type="radio" name="Flores" value="No">No</label>
+  <label class="choice"><input type="radio" name="Flores" value="Solo detalles">Solo algunos detalles</label>
+ </div>
+ <div class="subhead">Tipo de flores</div>
+ <div class="choices">
+  <label class="choice"><input type="checkbox" name="Tipo de flores" value="Rosas">Rosas</label>
+  <label class="choice"><input type="checkbox" name="Tipo de flores" value="Peonías">Peonías</label>
+  <label class="choice"><input type="checkbox" name="Tipo de flores" value="Hortensias">Hortensias</label>
+  <label class="choice"><input type="checkbox" name="Tipo de flores" value="Orquídeas">Orquídeas</label>
+  <label class="choice"><input type="checkbox" name="Tipo de flores" value="Tulipanes">Tulipanes</label>
+  <label class="choice"><input type="checkbox" name="Tipo de flores" value="Margaritas">Margaritas</label>
+  <label class="choice"><input type="checkbox" name="Tipo de flores" value="Flores silvestres">Flores silvestres</label>
+  <label class="choice"><input type="checkbox" name="Tipo de flores" value="Flores blancas">Flores blancas</label>
+  <label class="choice"><input type="checkbox" name="Tipo de flores" value="Flores tropicales">Flores tropicales</label>
+  <label class="choice"><input type="checkbox" name="Tipo de flores" value="Pampas y follaje seco">Pampas y follaje seco</label>
+ </div>
+ <div class="subhead">Otros elementos</div>
+ <div class="choices">
+  <label class="choice"><input type="checkbox" name="Elementos" value="Mariposas">Mariposas</label>
+  <label class="choice"><input type="checkbox" name="Elementos" value="Coronas">Coronas</label>
+  <label class="choice"><input type="checkbox" name="Elementos" value="Perlas">Perlas</label>
+  <label class="choice"><input type="checkbox" name="Elementos" value="Cristales y destellos">Cristales y destellos</label>
+  <label class="choice"><input type="checkbox" name="Elementos" value="Estrellas">Estrellas</label>
+  <label class="choice"><input type="checkbox" name="Elementos" value="Moños y listones">Moños y listones</label>
+  <label class="choice"><input type="checkbox" name="Elementos" value="Encaje">Encaje</label>
+  <label class="choice"><input type="checkbox" name="Elementos" value="Hojas y follaje">Hojas y follaje</label>
+  <label class="choice"><input type="checkbox" name="Elementos" value="Velas">Velas</label>
+  <label class="choice"><input type="checkbox" name="Elementos" value="Arcos y marcos">Arcos y marcos decorativos</label>
+ </div>
+ <div class="field" style="margin-top:14px"><label>Flores o detalles adicionales</label><textarea name="Detalles florales"></textarea></div>
+</section>
+
+<section class="section design-section">
+ <div class="section-head"><div class="num">09</div><div><h2>Referencias e inspiración</h2><p>Comparte ejemplos visuales para que entendamos mejor lo que tienes en mente.</p></div></div>
+ <div class="grid">
+  <div class="field full"><label>Enlace principal de Pinterest (tablero o pin)</label><input name="Enlace de Pinterest" type="url" placeholder="https://www.pinterest.com/..." ><span class="link-explainer">Comparte el tablero o pin que más represente el estilo que buscas.</span></div>
+  <div class="field full"><label>Otros enlaces de inspiración (Pinterest, Instagram, TikTok, etc.)</label><textarea name="Referencias" placeholder="Pega aquí otros enlaces que quieras compartir, uno por línea."></textarea></div>
+  <div class="field full"><label>¿Qué detalles te gustaron de esas referencias?</label><textarea name="Detalles de referencias" placeholder="Ej. El tipo de letra, los colores, el fondo, las flores, la composición..."></textarea></div>
+  <div class="field full"><label>¿Qué NO quieres que aparezca en el diseño?</label><textarea name="No incluir"></textarea></div>
+  <div class="field full"><label>Otras indicaciones o comentarios</label><textarea name="Comentarios"></textarea></div>
+  <div class="field"><label>Nombre de quien llena el formulario</label><input name="Persona que llena"></div>
+  <div class="field"><label>Teléfono de contacto</label><input name="Teléfono de contacto" type="tel"></div>
+ </div>
+</section>
+
+<section class="section advanced-only" hidden>
+ <div class="section-head"><div class="num">10</div><div><h2>Fotografías</h2><p>La inclusión de fotografías o una galería requiere una invitación avanzada.</p></div></div>
+ <div class="grid">
+  <div class="field"><label>¿Deseas incluir fotografías?</label><select name="Incluir fotografías"><option value="">Selecciona</option><option>Sí</option><option>No</option></select></div>
+  <div class="field"><label>¿Cuántas aproximadamente?</label><input name="Cantidad de fotografías" placeholder="Ej. 8 fotografías"></div>
+  <div class="field"><label>¿Ya tienes las fotografías?</label><select name="Fotografías listas"><option value="">Selecciona</option><option>Sí, las enviaré</option><option>No, están pendientes</option><option>Necesito orientación</option></select></div>
+  <div class="field"><label>¿Deseas galería interactiva?</label><select name="Galería interactiva"><option value="">Selecciona</option><option>Sí</option><option>No</option></select></div>
+ </div>
+</section>
+
+<section class="section advanced-only" hidden>
+ <div class="section-head"><div class="num">11</div><div><h2>Textos adicionales</h2><p>Además del texto de referencia incluido en todas las modalidades, puedes solicitar mensajes o apartados editoriales adicionales.</p></div></div>
+ <div class="choices">
+  <label class="choice"><input type="checkbox" name="Textos" value="Frase de bienvenida">Frase de bienvenida</label>
+  <label class="choice"><input type="checkbox" name="Textos" value="Mensaje de agradecimiento">Mensaje de agradecimiento</label>
+  <label class="choice"><input type="checkbox" name="Textos" value="Código de vestimenta">Código de vestimenta</label>
+  <label class="choice"><input type="checkbox" name="Textos" value="Itinerario">Itinerario del evento</label>
+  <label class="choice"><input type="checkbox" name="Textos" value="Confirmación RSVP">Confirmación de asistencia</label>
+  <label class="choice"><input type="checkbox" name="Textos" value="Despedida">Mensaje de despedida</label>
+ </div>
+ <div class="grid" style="margin-top:15px">
+  <div class="field"><label>¿Quién redactará los textos?</label><select name="Redacción"><option value="">Selecciona</option><option>Nosotros enviaremos los textos</option><option>Queremos que Ricardo's nos proponga textos</option></select></div>
+  <div class="field"><label>Código de vestimenta (si aplica)</label><input name="Código de vestimenta"></div>
+  <div class="field full"><label>Frase o mensaje personalizado</label><textarea name="Mensaje personalizado"></textarea></div>
+ </div>
+</section>
+
+<section class="section advanced-only" hidden>
+ <div class="section-head"><div class="num">12</div><div><h2>Enlaces y botones de mesa de regalos</h2><p>Opcional en invitaciones avanzadas. Permite agregar accesos directos a tiendas o listas externas.</p></div></div>
+ <div class="known"><b>Solo para la versión avanzada:</b> la invitación básica incluye únicamente el mensaje informativo de regalos del apartado anterior. Los botones y enlaces a tiendas se cotizan como funciones adicionales.</div>
+ <div class="choices">
+  <label class="choice"><input type="checkbox" name="Regalos" value="Botón de mesa de regalos">Botón a una mesa de regalos</label>
+  <label class="choice"><input type="checkbox" name="Regalos" value="Liverpool">Liverpool</label>
+  <label class="choice"><input type="checkbox" name="Regalos" value="Amazon">Amazon</label>
+  <label class="choice"><input type="checkbox" name="Regalos" value="Otra tienda">Otra tienda</label>
+ </div>
+ <div class="grid" style="margin-top:15px">
+  <div class="field"><label>Enlace de Liverpool (si aplica)</label><input name="Enlace Liverpool" type="url" placeholder="https://..."></div>
+  <div class="field"><label>Enlace de Amazon (si aplica)</label><input name="Enlace Amazon" type="url" placeholder="https://..."></div>
+  <div class="field"><label>Enlace de otra tienda o lista</label><input name="Enlace otra tienda" type="url" placeholder="https://..."></div>
+  <div class="field full"><label>Instrucciones para entregar sobres o regalos</label><textarea name="Instrucciones regalos"></textarea></div>
+ </div>
+</section>
+
+<section class="section advanced-only" hidden>
+ <div class="section-head"><div class="num">13</div><div><h2>Confirmación de asistencia · RSVP</h2><p>La función RSVP es adicional y requiere una invitación avanzada.</p></div></div>
+ <div class="grid">
+  <div class="field"><label>¿Deseas solicitar confirmación?</label><select name="Solicitar confirmación"><option value="">Selecciona</option><option>Sí</option><option>No</option></select></div>
+  <div class="field"><label>Fecha límite para confirmar</label><input name="Fecha límite RSVP" type="date"></div>
+  <div class="field"><label>Número de WhatsApp para confirmar</label><input name="WhatsApp RSVP" type="tel" placeholder="Con lada, por ejemplo 521..."></div>
+  <div class="field"><label>Nombre de quien recibirá confirmaciones</label><input name="Responsable RSVP"></div>
+  <div class="field full"><label>¿Qué datos debe solicitar el formulario?</label>
+   <div class="choices">
+    <label class="choice"><input type="checkbox" name="Datos RSVP" value="Nombre del invitado">Nombre del invitado</label>
+    <label class="choice"><input type="checkbox" name="Datos RSVP" value="Número de acompañantes">Número de acompañantes</label>
+    <label class="choice"><input type="checkbox" name="Datos RSVP" value="Asistencia sí/no">Confirmar asistencia (sí/no)</label>
+    <label class="choice"><input type="checkbox" name="Datos RSVP" value="Adultos y niños">Número de adultos y niños</label>
+    <label class="choice"><input type="checkbox" name="Datos RSVP" value="Restricciones alimenticias">Restricciones alimenticias</label>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="section advanced-only" hidden>
+ <div class="section-head"><div class="num">14</div><div><h2>Panel administrativo de invitados</h2><p>Servicio adicional; no está incluido en la invitación básica ni en todas las invitaciones avanzadas.</p></div></div>
+ <div class="known"><b>Panel administrativo con costo adicional.</b> Permite gestionar la lista de invitados y consultar sus confirmaciones desde un panel de control. Tiene un costo diferente al de una invitación básica y se cotiza por separado según las necesidades del evento.</div>
+ <div class="subhead">¿Deseas solicitar una cotización para una invitación avanzada con panel administrativo?</div>
+ <div class="inline-options admin-options">
+  <label class="choice"><input type="radio" name="Panel administrativo" value="Sí, deseo cotizar invitación avanzada con panel administrativo">Sí, deseo cotizarla</label>
+  <label class="choice"><input type="radio" name="Panel administrativo" value="No deseo panel administrativo">No, por ahora no lo necesito</label>
+  <label class="choice"><input type="radio" name="Panel administrativo" value="Quiero información sobre panel administrativo">Quiero más información antes de decidir</label>
+ </div>
+ <div class="grid" style="margin-top:15px">
+  <div class="field"><label>Nombre de la persona encargada de administrar invitados (si aplica)</label><input name="Encargado de administración"></div>
+  <div class="field"><label>Número de WhatsApp para recibir confirmaciones (si aplica)</label><input name="WhatsApp administración" type="tel"></div>
+  <div class="field full"><label>¿Deseas establecer un límite de invitados por invitación?</label><input name="Límite de invitados" placeholder="Ej. 4 personas por familia"></div>
+ </div>
+ <div class="callout">Marcar esta opción no significa que el panel ya esté contratado. Primero se revisan las funciones solicitadas y se informa el costo adicional para que puedas decidir.</div>
+</section>
+
+<section class="section advanced-only" hidden>
+ <div class="section-head"><div class="num">15</div><div><h2>Funciones y efectos adicionales</h2><p>Marca las funciones que te interesan para que podamos cotizar una invitación avanzada.</p></div></div>
+ <div class="known"><b>Funciones con costo adicional.</b> Estas opciones no están incluidas en la invitación básica. Marca solo las que te interesan; Ricardo's revisará tu solicitud y te compartirá una cotización antes de realizar cualquier trabajo adicional.</div>
+ <div class="choices">
+  <label class="choice"><input type="checkbox" name="Funciones" value="Apertura de sobre">Animación de apertura de sobre</label>
+  <label class="choice"><input type="checkbox" name="Funciones" value="Música">Música de fondo con botón de activar/desactivar</label>
+  <label class="choice"><input type="checkbox" name="Funciones" value="Galería">Galería de fotografías interactiva</label>
+  <label class="choice"><input type="checkbox" name="Funciones" value="Cuenta regresiva">Cuenta regresiva</label>
+  <label class="choice"><input type="checkbox" name="Funciones" value="Google Maps">Botones de Google Maps</label>
+  <label class="choice"><input type="checkbox" name="Funciones" value="WhatsApp RSVP">Confirmación por WhatsApp</label>
+  <label class="choice"><input type="checkbox" name="Funciones" value="Itinerario">Itinerario del evento</label>
+  <label class="choice"><input type="checkbox" name="Funciones" value="Animaciones">Animaciones de flores, pétalos o mariposas</label>
+  <label class="choice"><input type="checkbox" name="Funciones" value="Transiciones">Efectos de movimiento y transiciones</label>
+  <label class="choice"><input type="checkbox" name="Funciones" value="Mesa de regalos">Botón de mesa de regalos</label>
+ </div>
+ <div class="field" style="margin-top:14px"><label>Otras funciones que te gustaría solicitar</label><textarea name="Otras funciones"></textarea></div>
+</section>
+
+
+</form>
+
+<section class="workflow" aria-labelledby="workflowTitle">
+ <h2 class="workflow-title" id="workflowTitle">Guardar y enviar tu cuestionario</h2>
+ <p class="workflow-intro">Sigue estos tres pasos en orden para que Ricardo's reciba toda la información de tu invitación.</p>
+ <div class="workflow-status" id="workflowStatus" role="status" aria-live="polite">Paso 1: cuando termines de llenar el formulario, pulsa “Guardar cambios”.</div>
+ <div class="actions">
+  <button type="button" class="primary" id="saveBtn">1. Guardar cambios</button>
+  <button type="button" class="secondary" id="pdfBtn" disabled>2. Descargar PDF</button>
+  <button type="button" class="secondary" id="waBtn" disabled>3. Enviar PDF por WhatsApp</button>
+ </div>
+ <p class="workflow-note"><strong>Importante:</strong> primero guarda tus respuestas en este dispositivo. Después descarga el documento eligiendo “Guardar como PDF”. Finalmente se abrirá el chat de Ricardo's; adjunta manualmente el PDF descargado y pulsa enviar. El archivo no se adjunta automáticamente.</p>
+ <div class="actions" style="grid-template-columns:1fr;margin-top:12px">
+  <button type="button" class="light" id="clearBtn">Limpiar formulario</button>
+ </div>
+</section>
+
+<footer class="footer">
+ <strong>RICARDO'S FOTOGRAFÍA &amp; VIDEO</strong><br>
+ Capturamos momentos. Diseñamos recuerdos.<br>
+ <span>BRIEF DE INVITACIÓN DIGITAL · XV AÑOS</span>
+</footer>
+</div>
+<div id="toast"></div>
+<script>
+const form=document.getElementById('brief');
+const SAVE_KEY='ricardos_xv_invitation_brief_v1';
+let workflowIsRestoring=false;
+let workflowIsSaved=false;
+let workflowIsDirty=true;
+let workflowPdfReady=false;
+const saveBtn=document.getElementById('saveBtn');
+const pdfBtn=document.getElementById('pdfBtn');
+const waBtn=document.getElementById('waBtn');
+const workflowStatus=document.getElementById('workflowStatus');
+const RICARDOS_WHATSAPP='522281191768';
+const bar=document.getElementById('progressBar'), progressText=document.getElementById('progressText');
+
+function updateWorkflowUI(){
+ if(!saveBtn)return;
+ pdfBtn.disabled=!workflowIsSaved||workflowIsDirty;
+ waBtn.disabled=!workflowIsSaved||workflowIsDirty||!workflowPdfReady;
+ if(workflowIsDirty){
+  workflowStatus.textContent='Paso 1: hay cambios pendientes. Guarda tus respuestas para habilitar la descarga del PDF.';
+ }else if(workflowIsSaved&&!workflowPdfReady){
+  workflowStatus.textContent='Cambios guardados en este dispositivo. Paso 2: descarga el PDF y selecciona “Guardar como PDF”.';
+ }else if(workflowIsSaved&&workflowPdfReady){
+  workflowStatus.textContent='PDF confirmado como guardado. Paso 3: abre WhatsApp, adjunta el archivo PDF y envíalo a Ricardo’s.';
+ }else{
+  workflowStatus.textContent='Paso 1: cuando termines de llenar el formulario, pulsa “Guardar cambios”.';
+ }
+}
+function markUnsaved(){
+ if(workflowIsRestoring)return;
+ workflowIsDirty=true;
+ workflowIsSaved=false;
+ workflowPdfReady=false;
+ updateWorkflowUI();
+}
+
+function updateProgress(){
+ const fields=[...form.querySelectorAll('input:not([type=checkbox]):not([type=radio]),textarea,select')].filter(x=>!x.closest('[hidden]'));
+ const filled=fields.filter(x=>x.value.trim()).length;
+ const checks=[...form.querySelectorAll('input[type=checkbox]:checked,input[type=radio]:checked')].length;
+ const total=fields.length+20;
+ const pct=Math.min(100,Math.round((filled+checks)/total*100));
+ bar.style.width=pct+'%';progressText.textContent=pct+'% completado';
+}
+form.addEventListener('input',()=>{updateProgress();markUnsaved();});
+form.addEventListener('change',()=>{updateProgress();markUnsaved();});
+
+const planRadios=[...form.querySelectorAll('input[name="Tipo de invitación"]')];
+function renumberVisibleSections(){
+ let visibleNumber=0;
+ form.querySelectorAll(':scope > .section').forEach(section=>{
+  if(section.hidden) return;
+  visibleNumber++;
+  const number=section.querySelector('.section-head .num');
+  if(number) number.textContent=String(visibleNumber).padStart(2,'0');
+ });
+}
+function updatePlanSections(){
+ const selected=planRadios.find(r=>r.checked)?.value||'';
+ const showAdvanced=selected==='Solicito cotización de invitación avanzada'||selected==='Necesito asesoría antes de elegir';
+ document.querySelectorAll('.advanced-only').forEach(section=>{section.hidden=!showAdvanced;});
+ renumberVisibleSections();
+ updateProgress();
+}
+
+planRadios.forEach(r=>r.addEventListener('change',updatePlanSections));
+
+// Paletas predefinidas: cada combinación contiene exactamente cuatro tonos editables.
+const palettes = [
+ {id:'rose',name:'Rosa empolvado',colors:['#E8C5C6','#C9828E','#F6EDE7','#49363A']},
+ {id:'champagne',name:'Champagne y marfil',colors:['#F3E8D2','#D9C4A3','#B89969','#6B5D4B']},
+ {id:'lavender',name:'Lavanda y lila',colors:['#D8C8EC','#A78BC9','#F1EAF8','#74628E']},
+ {id:'blue-night',name:'Azul noche y plata',colors:['#101E36','#2F4E70','#B7C6D8','#C5A66A']},
+ {id:'sage',name:'Verde salvia y jardín',colors:['#879B81','#C7D2BF','#F3F0E6','#495A4D']},
+ {id:'terracotta',name:'Terracota y arena',colors:['#B96F4D','#D9A17E','#F0E2CC','#6E5545']},
+ {id:'black-gold',name:'Negro y dorado',colors:['#171717','#B58B28','#E7C66D','#F5F0E4']},
+ {id:'wine',name:'Vino y rosa antiguo',colors:['#642D3F','#A85D70','#D8A6A7','#E1C9A1']},
+ {id:'pastel',name:'Pasteles suaves',colors:['#F2C6D2','#BCD9D2','#BFCDF0','#E3D0EF']},
+ {id:'sky',name:'Azul cielo y blanco',colors:['#C7E1F2','#7AA9CE','#F5F7FA','#77849A']},
+ {id:'custom',name:'Crear mi propia combinación',colors:['#B88C62','#E8C5C6','#F6EDE7','#49363A'],custom:true}
+];
+const paletteLabels=['Color principal','Color secundario','Color de fondo','Color de acento'];
+const paletteGrid=document.getElementById('paletteGrid');
+const paletteEditor=document.getElementById('paletteEditor');
+const paletteColorEditors=document.getElementById('paletteColorEditors');
+const colorPickerOverlay=document.getElementById('colorPickerOverlay');
+const svSquare=document.getElementById('svSquare');
+const svMarker=document.getElementById('svMarker');
+const hueRange=document.getElementById('hueRange');
+const pickerHex=document.getElementById('pickerHex');
+const pickerRgb=document.getElementById('pickerRgb');
+const pickerCmyk=document.getElementById('pickerCmyk');
+const pickerPreview=document.getElementById('pickerPreview');
+const pickerError=document.getElementById('pickerError');
+let selectedPalette=null;
+let activeColorIndex=0;
+let draftColor='#FFFFFF';
+let originalColor='#FFFFFF';
+let hsv={h:0,s:0,v:1};
+let draggingSquare=false;
+
+function cleanHex(value){
+ let v=String(value||'').trim(); if(!v.startsWith('#'))v='#'+v;
+ return /^#[0-9a-fA-F]{6}$/.test(v)?v.toUpperCase():null;
+}
+function hexToRgb(hex){const h=cleanHex(hex);if(!h)return null;return {r:parseInt(h.slice(1,3),16),g:parseInt(h.slice(3,5),16),b:parseInt(h.slice(5,7),16)};}
+function rgbToHex(r,g,b){return '#'+[r,g,b].map(x=>Math.max(0,Math.min(255,Math.round(x))).toString(16).padStart(2,'0')).join('').toUpperCase();}
+function rgbToCmyk(r,g,b){
+ const rr=r/255,gg=g/255,bb=b/255,k=1-Math.max(rr,gg,bb);
+ if(k>=0.999999)return [0,0,0,100];
+ return [((1-rr-k)/(1-k))*100,((1-gg-k)/(1-k))*100,((1-bb-k)/(1-k))*100,k*100].map(v=>Math.round(v));
+}
+function cmykToRgb(c,m,y,k){
+ c/=100;m/=100;y/=100;k/=100;
+ return {r:Math.round(255*(1-c)*(1-k)),g:Math.round(255*(1-m)*(1-k)),b:Math.round(255*(1-y)*(1-k))};
+}
+function rgbToHsv(r,g,b){
+ r/=255;g/=255;b/=255;const max=Math.max(r,g,b),min=Math.min(r,g,b),d=max-min;let h=0;
+ if(d!==0){if(max===r)h=((g-b)/d)%6;else if(max===g)h=(b-r)/d+2;else h=(r-g)/d+4;h*=60;if(h<0)h+=360;}
+ const s=max===0?0:d/max;return {h,s:s*100,v:max};
+}
+function hsvToHex(h,s,v){
+ s/=100;let c=v*s,x=c*(1-Math.abs((h/60)%2-1)),m=v-c,r=0,g=0,b=0;
+ if(h<60){r=c;g=x;}else if(h<120){r=x;g=c;}else if(h<180){g=c;b=x;}else if(h<240){g=x;b=c;}else if(h<300){r=x;b=c;}else{r=c;b=x;}
+ return rgbToHex((r+m)*255,(g+m)*255,(b+m)*255);
+}
+function parseNumericValues(value,count,min,max){
+ const matches=String(value||'').match(/-?\d+(?:\.\d+)?/g);
+ if(!matches||matches.length!==count)return null;
+ const nums=matches.map(Number);if(nums.some(n=>!Number.isFinite(n)||n<min||n>max))return null;return nums;
+}
+function colorFormats(hex){
+ const rgb=hexToRgb(hex);const cmyk=rgbToCmyk(rgb.r,rgb.g,rgb.b);
+ return {hex:cleanHex(hex),rgb:`${rgb.r}, ${rgb.g}, ${rgb.b}`,cmyk:cmyk.join(', ')};
+}
+function renderPaletteCards(){
+ paletteGrid.innerHTML=palettes.map(p=>{
+  const swatches=p.colors.map((color,i)=>`<button type="button" class="palette-swatch" style="background:${color}" data-palette-id="${p.id}" data-color-index="${i}" aria-label="Editar ${paletteLabels[i].toLowerCase()} de ${p.name}" title="Pulsa para editar este color"></button>`).join('');
+  return `<div class="palette-card" data-palette-card="${p.id}"><div class="palette-card-head"><input type="radio" id="palette-${p.id}" name="Paleta de colores" value="${p.name}" required><label for="palette-${p.id}">${p.name}</label></div><div class="palette-swatches">${swatches}</div><div class="palette-hint">4 tonos · pulsa una muestra para personalizarla</div></div>`;
+ }).join('');
+ paletteGrid.querySelectorAll('input[name="Paleta de colores"]').forEach(r=>r.addEventListener('change',()=>selectPalette(r.value)));
+ paletteGrid.querySelectorAll('.palette-swatch').forEach(btn=>btn.addEventListener('click',()=>{
+  const p=palettes.find(item=>item.id===btn.dataset.paletteId);if(!p)return;
+  const radio=document.getElementById('palette-'+p.id);radio.checked=true;selectPalette(p.name);openColorPicker(p.id,Number(btn.dataset.colorIndex));
+ }));
+}
+function selectPalette(name){
+ selectedPalette=palettes.find(p=>p.name===name)||null;
+ paletteEditor.hidden=!selectedPalette;
+ if(selectedPalette)renderPaletteEditor();
+ updateProgress();
+ markUnsaved();
+}
+function renderPaletteEditor(){
+ if(!selectedPalette)return;
+ paletteColorEditors.innerHTML=selectedPalette.colors.map((color,i)=>{
+  const fmt=colorFormats(color);
+  return `<div class="palette-color-item">
+   <button type="button" class="editor-swatch" style="background:${fmt.hex}" data-editor-index="${i}" aria-label="Editar ${paletteLabels[i]}"></button>
+   <div class="palette-color-meta"><strong>${paletteLabels[i]}</strong>
+    <label class="palette-code-line"><span>HEX</span><input type="text" name="Color ${i+1} HEX" value="${fmt.hex}" readonly></label>
+    <label class="palette-code-line"><span>RGB</span><input type="text" name="Color ${i+1} RGB" value="${fmt.rgb}" readonly></label>
+    <label class="palette-code-line"><span>CMYK</span><input type="text" name="Color ${i+1} CMYK" value="${fmt.cmyk}" readonly></label>
+   </div>
+  </div>`;
+ }).join('');
+ paletteColorEditors.querySelectorAll('.editor-swatch').forEach(btn=>btn.addEventListener('click',()=>openColorPicker(selectedPalette.id,Number(btn.dataset.editorIndex))));
+ updatePaletteSwatches();
+}
+function updatePaletteSwatches(){
+ palettes.forEach(p=>{
+  p.colors.forEach((color,i)=>{
+   document.querySelectorAll(`.palette-swatch[data-palette-id="${p.id}"][data-color-index="${i}"]`).forEach(el=>el.style.background=color);
+  });
+ });
+ if(selectedPalette){
+  selectedPalette.colors.forEach((color,i)=>{
+   const btn=paletteColorEditors.querySelector(`.editor-swatch[data-editor-index="${i}"]`);if(btn)btn.style.background=color;
+   const fmt=colorFormats(color);
+   ['HEX','RGB','CMYK'].forEach(type=>{
+    const input=paletteColorEditors.querySelector(`[name="Color ${i+1} ${type}"]`);
+    if(input)input.value=fmt[type.toLowerCase()];
+   });
+  });
+ }
+}
+function updatePickerUI(){
+ const rgb=hexToRgb(draftColor);const fmt=colorFormats(draftColor);
+ svSquare.style.background=`linear-gradient(to top,#000,transparent),linear-gradient(to right,#fff,hsl(${hsv.h},100%,50%))`;
+ svMarker.style.left=`${hsv.s}%`;svMarker.style.top=`${100-hsv.v*100}%`;
+ hueRange.value=Math.round(hsv.h);
+ pickerPreview.style.background=draftColor;
+ pickerHex.value=fmt.hex;pickerRgb.value=fmt.rgb;pickerCmyk.value=fmt.cmyk;
+ document.getElementById('pickerColorName').textContent=fmt.hex;
+ pickerError.textContent='';
+}
+function setDraftColor(hex){
+ const safe=cleanHex(hex);if(!safe)return false;
+ draftColor=safe;const rgb=hexToRgb(safe);hsv=rgbToHsv(rgb.r,rgb.g,rgb.b);updatePickerUI();return true;
+}
+function openColorPicker(paletteId,index){
+ const target=palettes.find(p=>p.id===paletteId);if(!target)return;
+ if(selectedPalette!==target){const radio=document.getElementById('palette-'+target.id);if(radio)radio.checked=true;selectPalette(target.name);}
+ activeColorIndex=index;originalColor=target.colors[index];draftColor=originalColor;
+ const rgb=hexToRgb(draftColor);hsv=rgbToHsv(rgb.r,rgb.g,rgb.b);
+ document.getElementById('pickerTitle').textContent=`Editar ${paletteLabels[index].toLowerCase()}`;
+ updatePickerUI();colorPickerOverlay.hidden=false;document.body.style.overflow='hidden';
+}
+function closeColorPicker(save){
+ if(save&&selectedPalette){selectedPalette.colors[activeColorIndex]=draftColor;updatePaletteSwatches();renderPaletteEditor();markUnsaved();}
+ else{draftColor=originalColor;}
+ colorPickerOverlay.hidden=true;document.body.style.overflow='';updateProgress();
+}
+function updateColorFromSquare(event){
+ const rect=svSquare.getBoundingClientRect();
+ const s=Math.max(0,Math.min(1,(event.clientX-rect.left)/rect.width));
+ const v=1-Math.max(0,Math.min(1,(event.clientY-rect.top)/rect.height));
+ hsv.s=s*100;hsv.v=v;draftColor=hsvToHex(hsv.h,hsv.s,hsv.v);updatePickerUI();
+}
+svSquare.addEventListener('pointerdown',event=>{draggingSquare=true;svSquare.setPointerCapture(event.pointerId);updateColorFromSquare(event);});
+svSquare.addEventListener('pointermove',event=>{if(draggingSquare)updateColorFromSquare(event);});
+svSquare.addEventListener('pointerup',()=>draggingSquare=false);
+svSquare.addEventListener('pointercancel',()=>draggingSquare=false);
+hueRange.addEventListener('input',()=>{hsv.h=Number(hueRange.value);draftColor=hsvToHex(hsv.h,hsv.s,hsv.v);updatePickerUI();});
+function parsePickerValue(type,value){
+ if(type==='hex')return cleanHex(value);
+ if(type==='rgb'){
+  const nums=parseNumericValues(value,3,0,255);return nums?rgbToHex(...nums):null;
+ }
+ if(type==='cmyk'){
+  const nums=parseNumericValues(value,4,0,100);if(!nums)return null;
+  const rgb=cmykToRgb(...nums);return rgbToHex(rgb.r,rgb.g,rgb.b);
+ }
+ return null;
+}
+[['hex',pickerHex],['rgb',pickerRgb],['cmyk',pickerCmyk]].forEach(([type,input])=>input.addEventListener('change',()=>{
+ const parsed=parsePickerValue(type,input.value);
+ if(!parsed){pickerError.textContent=type==='hex'?'Escribe un HEX válido de 6 dígitos.':type==='rgb'?'Escribe tres valores RGB entre 0 y 255.':'Escribe cuatro porcentajes CMYK entre 0 y 100.';return;}
+ setDraftColor(parsed);
+}));
+document.getElementById('pickerSave').addEventListener('click',()=>closeColorPicker(true));
+document.getElementById('pickerCancel').addEventListener('click',()=>closeColorPicker(false));
+document.getElementById('pickerClose').addEventListener('click',()=>closeColorPicker(false));
+colorPickerOverlay.addEventListener('click',event=>{if(event.target===colorPickerOverlay)closeColorPicker(false);});
+document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!colorPickerOverlay.hidden)closeColorPicker(false);});
+function resetPalettes(){
+ const initial={rose:['#E8C5C6','#C9828E','#F6EDE7','#49363A'],champagne:['#F3E8D2','#D9C4A3','#B89969','#6B5D4B'],lavender:['#D8C8EC','#A78BC9','#F1EAF8','#74628E'],'blue-night':['#101E36','#2F4E70','#B7C6D8','#C5A66A'],sage:['#879B81','#C7D2BF','#F3F0E6','#495A4D'],terracotta:['#B96F4D','#D9A17E','#F0E2CC','#6E5545'],'black-gold':['#171717','#B58B28','#E7C66D','#F5F0E4'],wine:['#642D3F','#A85D70','#D8A6A7','#E1C9A1'],pastel:['#F2C6D2','#BCD9D2','#BFCDF0','#E3D0EF'],sky:['#C7E1F2','#7AA9CE','#F5F7FA','#77849A'],custom:['#B88C62','#E8C5C6','#F6EDE7','#49363A']};
+ palettes.forEach(p=>p.colors=[...initial[p.id]]);selectedPalette=null;paletteEditor.hidden=true;paletteGrid.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);updatePaletteSwatches();
+}
+renderPaletteCards();
+
+function collect(){
+ const data={};
+ [...form.elements].forEach(el=>{
+  if(!el.name)return;
+  if(el.closest('[hidden]'))return;
+  if((el.type==='checkbox'||el.type==='radio')&&!el.checked)return;
+  const value=el.value.trim();if(!value)return;
+  if(data[el.name]) data[el.name]+=', '+value; else data[el.name]=value;
+ });
+ return data;
+}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',3200)}
+function getFormSnapshot(){
+ const snapshot={};
+ [...form.elements].forEach(el=>{
+  if(!el.name||['button','submit','reset'].includes(el.type))return;
+  if(el.type==='checkbox'||el.type==='radio'){
+   if(!Array.isArray(snapshot[el.name]))snapshot[el.name]=[];
+   if(el.checked)snapshot[el.name].push(el.value);
+  }else snapshot[el.name]=el.value;
+ });
+ return snapshot;
+}
+function applyFormSnapshot(snapshot){
+ if(!snapshot)return;
+ Object.entries(snapshot).forEach(([name,value])=>{
+  const controls=[...form.elements].filter(el=>el.name===name);
+  controls.forEach(el=>{
+   if(el.type==='checkbox'||el.type==='radio')el.checked=Array.isArray(value)&&value.includes(el.value);
+   else if(typeof value==='string')el.value=value;
+  });
+ });
+}
+function saveCurrentChanges(){
+ if(!form.reportValidity()){
+  toast('Revisa los campos obligatorios antes de guardar.');
+  return;
+ }
+ const state={
+  version:1,
+  savedAt:new Date().toISOString(),
+  form:getFormSnapshot(),
+  selectedPaletteId:selectedPalette?.id||null,
+  palettes:palettes.map(p=>({id:p.id,colors:[...p.colors]}))
+ };
+ try{
+  localStorage.setItem(SAVE_KEY,JSON.stringify(state));
+  workflowIsSaved=true;workflowIsDirty=false;workflowPdfReady=false;
+  updateWorkflowUI();
+  toast('Cambios guardados en este dispositivo. Ya puedes descargar el PDF.');
+ }catch(error){
+  workflowIsSaved=false;workflowIsDirty=true;workflowPdfReady=false;updateWorkflowUI();
+  toast('No fue posible guardar en este navegador. Revisa la configuración de almacenamiento.');
+ }
+}
+function restoreSavedChanges(){
+ let raw='';
+ try{raw=localStorage.getItem(SAVE_KEY)||'';}catch(error){updateWorkflowUI();return;}
+ if(!raw){updateWorkflowUI();return;}
+ try{
+  const state=JSON.parse(raw);
+  workflowIsRestoring=true;
+  if(Array.isArray(state.palettes)){
+   state.palettes.forEach(savedPalette=>{
+    const current=palettes.find(p=>p.id===savedPalette.id);
+    if(current&&Array.isArray(savedPalette.colors)&&savedPalette.colors.length===4){
+     current.colors=savedPalette.colors.map(cleanHex);
+     if(current.colors.some(color=>!color))current.colors=null;
+     if(current.colors===null){
+      const defaults={rose:['#E8C5C6','#C9828E','#F6EDE7','#49363A'],champagne:['#F3E8D2','#D9C4A3','#B89969','#6B5D4B'],lavender:['#D8C8EC','#A78BC9','#F1EAF8','#74628E'],'blue-night':['#101E36','#2F4E70','#B7C6D8','#C5A66A'],sage:['#879B81','#C7D2BF','#F3F0E6','#495A4D'],terracotta:['#B96F4D','#D9A17E','#F0E2CC','#6E5545'],'black-gold':['#171717','#B58B28','#E7C66D','#F5F0E4'],wine:['#642D3F','#A85D70','#D8A6A7','#E1C9A1'],pastel:['#F2C6D2','#BCD9D2','#BFCDF0','#E3D0EF'],sky:['#C7E1F2','#7AA9CE','#F5F7FA','#77849A'],custom:['#B88C62','#E8C5C6','#F6EDE7','#49363A']};
+      current.colors=[...defaults[current.id]];
+     }
+    }
+   });
+  }
+  applyFormSnapshot(state.form);
+  updatePlanSections();
+  const paletteId=state.selectedPaletteId;
+  const savedPalette=palettes.find(p=>p.id===paletteId);
+  if(savedPalette){
+   const radio=document.getElementById('palette-'+savedPalette.id);
+   if(radio)radio.checked=true;
+   selectPalette(savedPalette.name);
+  }
+  applyFormSnapshot(state.form);
+  updatePaletteSwatches();
+  updatePlanSections();
+  workflowIsSaved=true;workflowIsDirty=false;workflowPdfReady=false;
+  workflowIsRestoring=false;
+  updateProgress();updateWorkflowUI();
+  toast('Encontramos tus respuestas guardadas en este dispositivo.');
+ }catch(error){
+  workflowIsRestoring=false;
+  workflowIsSaved=false;workflowIsDirty=true;workflowPdfReady=false;
+  updateWorkflowUI();
+  toast('No se pudieron recuperar los cambios guardados.');
+ }
+}
+
+saveBtn.addEventListener('click',saveCurrentChanges);
+pdfBtn.addEventListener('click',()=>{
+ if(!workflowIsSaved||workflowIsDirty){toast('Primero guarda los cambios.');return;}
+ if(!form.reportValidity())return;
+ document.title='Cuestionario XV años - '+(form.elements['Nombre de la quinceañera'].value||'Ricardos');
+ window.print();
+ const confirmed=confirm('¿Guardaste el documento como PDF en tu dispositivo?\n\nSelecciona “Guardar como PDF” en la ventana de impresión. Después confirma aquí para habilitar el envío por WhatsApp.');
+ if(confirmed){
+  workflowPdfReady=true;updateWorkflowUI();
+  toast('Perfecto. Ya puedes abrir WhatsApp y adjuntar el PDF.');
+ }else{
+  workflowPdfReady=false;updateWorkflowUI();
+  toast('Cuando tengas guardado el PDF, vuelve a pulsar “Descargar PDF”.');
+ }
+});
+waBtn.addEventListener('click',()=>{
+ if(!workflowIsSaved||workflowIsDirty){toast('Primero guarda los cambios.');return;}
+ if(!workflowPdfReady){toast('Primero descarga y guarda el PDF.');return;}
+ const d=collect();
+ const msg='Hola, Ricardo’s Fotografía & Video. Te envío adjunto el PDF con la información de mi invitación digital de XV años.'+
+  '\n\nQuinceañera: '+(d['Nombre de la quinceañera']||'')+
+  '\nFecha del evento: '+(d['Fecha del evento']||'')+
+  '\nModalidad: '+(d['Tipo de invitación']||'Por definir')+
+  '\n\nAdjunto el cuestionario en PDF para que puedan revisar mis datos y preferencias. ¡Gracias!';
+ const url='https://wa.me/'+RICARDOS_WHATSAPP+'?text='+encodeURIComponent(msg);
+ const opened=window.open(url,'_blank');
+ if(!opened)window.location.href=url;
+ toast('Se abrió el chat de Ricardo’s. Adjunta el PDF descargado y pulsa enviar.');
+});
+document.getElementById('clearBtn').addEventListener('click',()=>{
+ if(confirm('¿Seguro que deseas borrar todas las respuestas y los cambios guardados en este dispositivo?')){
+  form.reset();resetPalettes();
+  try{localStorage.removeItem(SAVE_KEY);}catch(error){}
+  workflowIsSaved=false;workflowIsDirty=true;workflowPdfReady=false;
+  updatePlanSections();updateProgress();updateWorkflowUI();
+  window.scrollTo({top:0,behavior:'smooth'});
+ }
+});
+updatePlanSections();
+updateProgress();
+restoreSavedChanges();
+</script>
+</body>
+</html>

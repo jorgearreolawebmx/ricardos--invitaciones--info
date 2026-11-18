@@ -1,0 +1,35 @@
+RICARDO'S FOTOGRAFÍA & VIDEO — BRIEF DE INVITACIÓN DIGITAL
+
+CONTENIDO
+- index.html: formulario web responsive e interactivo.
+- logo-ricardos.jpg: logotipo original horizontal de Ricardo's.
+
+FLUJO PARA EL CLIENTE
+1. Completar el cuestionario y pulsar “1. Guardar cambios”. Las respuestas se guardan en el almacenamiento local del navegador/dispositivo.
+2. Pulsar “2. Descargar PDF”. En la ventana de impresión, seleccionar “Guardar como PDF”. Confirmar que el PDF se guardó para habilitar el siguiente paso.
+3. Pulsar “3. Enviar PDF por WhatsApp”. Se abrirá el chat de Ricardo's Fotografía & Video al número +52 228 119 1768 con un mensaje preparado. El cliente debe adjuntar manualmente el PDF descargado y enviarlo.
+
+IMPORTANTE
+- Por seguridad del navegador, una página web no puede adjuntar automáticamente un archivo local a WhatsApp. El cliente debe adjuntar el PDF manualmente desde el chat.
+- “Guardar cambios” guarda las respuestas solo en el mismo navegador/dispositivo donde se llenó el formulario; no las envía a Ricardo's. Para entregar la información, debe completarse el paso de WhatsApp con el PDF adjunto.
+- Si el cliente modifica cualquier respuesta después de guardar, la descarga y el envío se bloquean hasta volver a guardar los cambios.
+- El botón de PDF utiliza la ventana de impresión del navegador; elegir “Guardar como PDF” para generar el archivo.
+
+CÓMO USAR / PUBLICAR
+1. Mantén index.html y logo-ricardos.jpg en la misma carpeta.
+2. Abre index.html en Chrome, Edge o Firefox, o publica ambos archivos en un hosting estático.
+3. Para compartirlo por internet, sube los dos archivos a GitHub Pages, Netlify o Cloudflare Pages.
+
+FUNCIONES DEL CUESTIONARIO
+- Selección de invitación básica o solicitud de cotización avanzada.
+- Datos esenciales comunes a ambas modalidades.
+- Enlaces de Google Maps para referencia de iglesia y salón en cualquier modalidad.
+- Paletas de cuatro tonos editables con selector visual y valores HEX, RGB y CMYK.
+- Enlace de Pinterest y otras referencias.
+- Preferencias de estilo, temática, fondo, flores, textos y mesa de regalos.
+- Opciones de RSVP, administración y elementos avanzados sujetos a cotización.
+
+ACTUALIZACIÓN DE DISEÑO (V9)
+- Logotipo original recortado conservando su diseño, centrado en una franja negra horizontal de ancho completo.
+- Se eliminó el tratamiento de caja independiente alrededor del logotipo: la imagen se integra visualmente con la franja.
+- El texto introductorio queda centrado debajo de la franja.
